@@ -14,20 +14,31 @@ getRandomArray(5,50,80);
 
 //2 Створіть функцію getModa(...numbers) – яка вираховує моду всіх переданих в неї аргументів. НЕЦІЛІ ЧИСЛА ІГНОРУЮТЬСЯ
 
-const getModa=(...numbers)=> {
-    let newArr = numbers.filter(number=> Number.isInteger(number))
-    let mode;
-      for(let i = 0; i < newArr.length; i++){
-        for(let j = 0; j < i; j++){
-           if(newArr[j] === newArr[i]){
-               mode = newArr[j];
-              
-           }
-        }
+ const getModa = (...numbers)=> {
+      let newArr = numbers.filter(number => Number.isInteger(number))
+      let mode, count = [], i, number, maxIndex = 0;
+      for (i = 0; i < newArr.length; i++) {
+          number = newArr[i];
+          count[number] = (count[number] || 0) + 1;
+          if (count[number] > maxIndex) {
+              maxIndex = count[number];
+          }
       }
+      for (i in count)
+          if (count.hasOwnProperty(i)) {
+              if (count[i] === maxIndex) {
+                  mode=Number(i);
+              }
+          }
+   
       return mode;
-    }
-    getModa(6, 55, 11, 78, 55, 77, 57, 87, 23, 2, 56, 3, );
+  }
+  
+  getModa(1,2,2,2,2,2,2,2,1);
+
+
+
+
 
 //3 Створіть функцію getAverage(...numbers) – яка рахує середнє арифметичне всіх переданих в неї аргументів. НЕЦІЛІ ЧИСЛА ІГНОРУЮТЬСЯ
 
@@ -76,24 +87,18 @@ const getDividedByFive = (...numbers)=>{
 getDividedByFive(6,15, 2, 55, 11, 78, 2, 55, 77, 57, 87, 23, 2, 56, 3, 2,100);
 
  //8 Створіть функцію replaceBadWords(string) – яка 1) розіб'є фразу на слова, 2) замінить погані слова на зірочки (*)
-      
-      const replaceBadWords=(string)=>{
-       let newStr1;
-         if(string.includes("fuck")){
-           newStr1=string.replace(/fuck/i,"****");
-         }else if(string.includes("shit")){
-          newStr1=string.replace(/shit/i,"****");
-        }
-          return newStr1;
-      }
 
-replaceBadWords("It's bullshit!");
+const replaceBadWords = (str) =>{
+let results = str.replace(/fuck|shit/gi, "****")
+return results;
+    }
+  
+replaceBadWords("It's bullshit!Are you fucking kidding ?")
 
 
-
-//9999Створіть функцію divideByThree(word), яка розбиває кожне слово на умовні склади по 3 букви. Якщо букв менше трьох – не розбиває. Пробіли завжди видаляються. Рядок приводится до нижнього регістру. Приклад: divideByThree("Commander) -> ["com", "man", "der"] Приклад: divideByThree("live") -> ["liv", "e"]
+//9 Створіть функцію divideByThree(word), яка розбиває кожне слово на умовні склади по 3 букви. Якщо букв менше трьох – не розбиває. Пробіли завжди видаляються. Рядок приводится до нижнього регістру. Приклад: divideByThree("Commander) -> ["com", "man", "der"] Приклад: divideByThree("live") -> ["liv", "e"]
 const divideByThree = (word) =>{
-     let newArr=[];
+     let newArr = [];
      for(let i = 0; i < word.length; i = i+3){
          newArr.push(word.slice(i,i+3));
         }
@@ -104,13 +109,13 @@ divideByThree("будапешт");
 let container=document.querySelector("#root");
 container.innerHTML=`
 <p>1 Масив випадкових цілих чисел:${getRandomArray(5,50,80)}</p>
-<p>2 Функція на моду:${getModa(6, 55, 11, 78, 55, 77, 57, 87, 23, 2, 56, 3, )}</p>
+<p>2 Функція на моду:${getModa(1,2,2,2,2,2,2,2,2,1)}</p>
 <p>3 Функція на середнє арифметичне:${getAverage(6, 55, 11, 78, 55, 77, 57, 87, 23, 2, 56, 3, )}</p>
 <p>4 Функція на медіану:${getMedian(1,2,3,4)}</p>
 <p>5 Функція яка фільтрує парні числа:${filterEvenNumbers(1, 2, 3, 4, 5, 6,80,30,41)}</p>
 <p>6 Функція яка рахує кількість чисел більших нуля:${countPositiveNumbers(1, -2, 3, -4, -5, 6,8,90)}</p>
 <p>7 Функція яка фільтрує елементи що діляться на 5:${getDividedByFive(6,15, 2, 55, 11, 78, 2, 55, 77, 57, 87, 23, 2, 56, 3, 2,100)}</p>
-<p>8 Функція яка заміняє погані слова:${replaceBadWords("It's bullshit!")}</p>
+<p>8 Функція яка заміняє погані слова:${replaceBadWords("It's bullshit!Are you fucking kidding ?")}</p>
 <p>9 Функція яка розбиває слово на склади по 3 букви:${divideByThree("будапешт")}</p>
 `
 
